@@ -26,8 +26,8 @@
 {
     
     NSDateFormatter * formatter =  [[NSDateFormatter alloc] init];
-    [formatter setAMSymbol:@"am"];
-    [formatter setPMSymbol:@"pm"];
+    [formatter setAMSymbol:@"ص"];
+    [formatter setPMSymbol:@"م"];
     [formatter setDateFormat:forMatStr];
     formatter.timeZone = [NSTimeZone localTimeZone];
     
@@ -189,7 +189,7 @@
         
         UIWindow * keyWindow = [[UIApplication sharedApplication] keyWindow];
         UILabel * toastView = [[UILabel alloc] init];
-        [toastView setFont:[UIFont fontWithName:@"Helvetica" size:14]];
+        [toastView setFont:[UIFont fontWithName:@"DroidArabicKufi" size:14]];
         toastView.text = toastMessage;
         [toastView setTextColor:[ALApplozicSettings getColorForToastText]];
         toastView.backgroundColor = [ALApplozicSettings getColorForToastBackground];
@@ -246,8 +246,8 @@
     ALPushAssist* top=[[ALPushAssist alloc] init];
     UIImage *appIcon = [UIImage imageNamed: [[[[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIcons"] objectForKey:@"CFBundlePrimaryIcon"] objectForKey:@"CFBundleIconFiles"] objectAtIndex:0]];
     
-    [[TSMessageView appearance] setTitleFont:[UIFont fontWithName:@"Helvetica Neue" size:18.0]];
-    [[TSMessageView appearance] setContentFont:[UIFont fontWithName:@"Helvetica Neue" size:14]];
+    [[TSMessageView appearance] setTitleFont:[UIFont fontWithName:ALApplozicSettings.getFontFace size:18.0]];
+    [[TSMessageView appearance] setContentFont:[UIFont fontWithName:ALApplozicSettings.getFontFace size:14]];
     [[TSMessageView appearance] setTitleTextColor:[UIColor whiteColor]];
     [[TSMessageView appearance] setContentTextColor:[UIColor whiteColor]];
    
@@ -295,8 +295,8 @@
     ALPushAssist* top=[[ALPushAssist alloc] init];
     UIImage *appIcon = [UIImage imageNamed: [[[[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIcons"] objectForKey:@"CFBundlePrimaryIcon"] objectForKey:@"CFBundleIconFiles"] objectAtIndex:0]];
 
-    [[TSMessageView appearance] setTitleFont:[UIFont fontWithName:@"Helvetica Neue" size:18.0]];
-    [[TSMessageView appearance] setContentFont:[UIFont fontWithName:@"Helvetica Neue" size:14]];
+    [[TSMessageView appearance] setTitleFont:[UIFont fontWithName:ALApplozicSettings.getFontFace size:18.0]];
+    [[TSMessageView appearance] setContentFont:[UIFont fontWithName:ALApplozicSettings.getFontFace size:14]];
     [[TSMessageView appearance] setTitleTextColor:[UIColor whiteColor]];
     [[TSMessageView appearance] setContentTextColor:[UIColor whiteColor]];
 
@@ -380,8 +380,8 @@
     }
     
     [format setDateFormat:@"hh:mm a"];
-    [format setAMSymbol:@"am"];
-    [format setPMSymbol:@"pm"];
+    [format setAMSymbol:@"ص"];
+    [format setPMSymbol:@"م"];
     
     self.msgtime = [format stringFromDate:date];
     
@@ -567,15 +567,15 @@
     
     if (hours)
     {
-        text = [NSString stringWithFormat:@"%ld Hr %02ld Min %02ld Sec", (long)hours, (long)minutes, (long)seconds];
+        text = [NSString stringWithFormat:@"%ld ساعة %02ld دقيقة %02ld ثواني", (long)hours, (long)minutes, (long)seconds];
     }
     else if (minutes)
     {
-        text = [NSString stringWithFormat:@"%ld Min %ld Sec", (long)minutes, (long)seconds];
+        text = [NSString stringWithFormat:@"%ld دقيقة %ld ثواني", (long)minutes, (long)seconds];
     }
     else
     {
-        text = [NSString stringWithFormat:@"%ld Sec", (long)seconds];
+        text = [NSString stringWithFormat:@"%ld ثواني", (long)seconds];
     }
     
     return text;
