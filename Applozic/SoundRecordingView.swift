@@ -96,9 +96,11 @@ import Foundation
 
     private func setupRecordingSession()
     {
-        recordingSession = AVAudioSession.sharedInstance()
         do {
-            try recordingSession.setCategory(convertFromAVAudioSessionCategory(AVAudioSession.Category.playAndRecord))
+            // Getting audio session from objective c for swift 4.2 setCategory is not  available for IOS 9 in swift
+            
+            let alAudioSession = ALAudioSession()
+            recordingSession = alAudioSession.getWithPlayback(false)
             try recordingSession.overrideOutputAudioPort(.speaker)
             try recordingSession.setActive(true)
             recordingSession.requestRecordPermission() {[weak self] allowed in
@@ -141,8 +143,6 @@ import Foundation
         case AVAudioSession.RecordPermission.granted:
             // mic access ok...
             isAllow = true
-            break;
-        default:
             break;
         }
 
@@ -203,7 +203,9 @@ import Foundation
             AVEncoderAudioQualityKey: AVAudioQuality.medium.rawValue
         ]
         do {
-            try recordingSession.setCategory(convertFromAVAudioSessionCategory(AVAudioSession.Category.playAndRecord))
+            // Getting audio session from objective c for swift 4.2 setCategory is not  available for IOS 9 in swift
+            let alAudioSession = ALAudioSession()
+            recordingSession = alAudioSession.getWithPlayback(false)
             try recordingSession.overrideOutputAudioPort(.speaker)
             try recordingSession.setActive(true)
             audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
@@ -265,7 +267,10 @@ import Foundation
 
         recordingSession = AVAudioSession.sharedInstance()
         do {
-            try recordingSession.setCategory(convertFromAVAudioSessionCategory(AVAudioSession.Category.playback))
+            // Getting audio session from objective c for swift 4.2 setCategory is not  available for IOS 9 in swift
+            
+            let alAudioSession = ALAudioSession()
+            recordingSession = alAudioSession.getWithPlayback(true)
             audioPlayer = try AVAudioPlayer(contentsOf: url)
             guard let player = audioPlayer else { return }
 
@@ -303,8 +308,3 @@ extension ALSoundRecorderButton: AVAudioRecorderDelegate
     }
 }
 
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
-	return input.rawValue
-}
