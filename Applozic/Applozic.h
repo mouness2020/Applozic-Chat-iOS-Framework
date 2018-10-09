@@ -116,3 +116,4 @@ FOUNDATION_EXPORT const unsigned char ApplozicVersionString[];
 #import <Applozic/MQTTSSLSecurityPolicyDecoder.h>
 #import <Applozic/MQTTSessionManager.h>
 #import <Applozic/MQTTSSLSecurityPolicyEncoder.h>
+#import <Applozic/ALAudioSession.h>
