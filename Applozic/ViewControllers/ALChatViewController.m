@@ -1192,16 +1192,30 @@
     }
     else if (![ALApplozicSettings isGroupInfoDisabled] && (self.alChannel.type != GROUP_OF_TWO) && ![ALChannelService isChannelDeleted:self.channelKey] && ![ALChannelService isConversationClosed:self.channelKey])
     {
-        UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Applozic" bundle:[NSBundle bundleForClass:[self class]]];
-        ALGroupDetailViewController * groupDetailViewController = (ALGroupDetailViewController*)[storyboard instantiateViewControllerWithIdentifier:@"ALGroupDetailViewController"];
-        groupDetailViewController.channelKeyID = self.channelKey;
-        groupDetailViewController.alChatViewController = self;
         
-        if([ALApplozicSettings isContactsGroupEnabled] && _contactsGroupId){
-            [ALApplozicSettings setContactsGroupId:_contactsGroupId];
+        @try {
+           
+            if([NSBundle bundleForClass:[self class]] == nil){
+                
+                return;
+            }
+            UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Applozic" bundle:[NSBundle bundleForClass:[self class]]];
+            ALGroupDetailViewController * groupDetailViewController = (ALGroupDetailViewController*)[storyboard instantiateViewControllerWithIdentifier:@"ALGroupDetailViewController"];
+            groupDetailViewController.channelKeyID = self.channelKey;
+            groupDetailViewController.alChatViewController = self;
+            
+            if([ALApplozicSettings isContactsGroupEnabled] && _contactsGroupId){
+                [ALApplozicSettings setContactsGroupId:_contactsGroupId];
+            }
+            
+            [self.navigationController pushViewController:groupDetailViewController animated:YES];
+            
         }
-        
-        [self.navigationController pushViewController:groupDetailViewController animated:YES];
+        @catch (NSException * e) {
+            NSLog(@"Exception: %@", e);
+        }
+       
+       
     }
 }
 
